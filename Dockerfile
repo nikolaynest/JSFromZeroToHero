@@ -1,12 +1,15 @@
-# Step 1: Use an official nginx image as the base image
-FROM ubuntu
+# Use the official Nginx image as the base image
+FROM nginx:latest
 
-RUN apt-get update
+# Copy your custom configuration file (optional)
+# COPY nginx.conf /etc/nginx/nginx.conf
 
-RUN apt-get install nginx -y
+# Copy your static website or application files to the container
+# Here we're assuming you have an index.html file in your current directory
+COPY . /usr/share/nginx/html
 
-COPY . /var/www/app/
-
+# Expose port 8080 to the host
 EXPOSE 8080
 
+# Run Nginx in the foreground
 CMD ["nginx", "-g", "daemon off;"]
